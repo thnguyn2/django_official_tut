@@ -1,0 +1,11 @@
+{% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> </li>
+            <!--Use the template tag defined in polls/urls.py. 'polls:details' is [app name]:[mapping name]-->
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No polls are available</p>
+{% endif %}

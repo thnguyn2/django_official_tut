@@ -1,0 +1,7 @@
+<h1>{{ question.question_text }}</h1>
+<!--The first one is value look up for key, the next one is attribute look up-->
+<ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+</ul>
