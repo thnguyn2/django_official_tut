@@ -1,7 +1,20 @@
 <h1>{{ question.question_text }}</h1>
 <!--The first one is value look up for key, the next one is attribute look up-->
-<ul>
-    {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }}</li>
+{%  if error_message %}<p><strong>{{ error_message }}</strong></p>
+    <!--Error message is a key in the passed dictionary-->
+{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method = "post">
+    <!--Action is the url that the form will be directed to-->
+    <!--question is a key in the context, .id is the attribute of the object-->
+    {% csrf_token %}
+    {% for choice in question.choice_set.all%}
+    <!--Display all the radio button-->
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"/>
+        <!--When the user submit the form, it will send out [name]=[ID of the selected choice]-->
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+
     {% endfor %}
-</ul>
+<input type="submit" value="Vote">
+</form>
+
